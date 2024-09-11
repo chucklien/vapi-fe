@@ -10,7 +10,6 @@ const Chat = ({ style, conversations }) => {
         height: '50vh',
         overflow: 'scroll',
         padding: '20px',
-        alignSelf: 'stretch',
         ...style,
       }}
     >

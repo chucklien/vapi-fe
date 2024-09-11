@@ -54,7 +54,7 @@ const App = () => {
     });
 
     vapi.on('message', message => {
-      console.log('message', message);
+      // console.log('message', message);
       if (message.type === 'conversation-update') {
         setConversations(message?.conversation);
       }
@@ -110,7 +110,15 @@ const App = () => {
       }}
     >
       {!connected && conversations.length > 0 && (
-        <Chat style={{ marginBottom: '15px', flex: 1 }} conversations={tail(conversations)} />
+        <Chat
+          style={{
+            marginBottom: '15px',
+            width: '100%',
+            maxWidth: '768px',
+            boxSizing: 'border-box',
+          }}
+          conversations={tail(conversations)}
+        />
       )}
       {!connected && conversations.length === 0 && (
         <p style={{ marginTop: '50px', color: '#333333' }}>按下開始對談</p>
