@@ -1,0 +1,77 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ActiveCallDetail	src/components/ActiveCallDetail.jsx	/^const ActiveCallDetail = ({ assistantIsSpeaking, volumeLevel, onEndCallClick }) => {$/;"	F	line:7	language:JavaScript
+App	src/App.jsx	/^const App = () => {$/;"	F	line:14	language:JavaScript
+AssistantSpeechIndicator	src/components/call/AssistantSpeechIndicator.jsx	/^const AssistantSpeechIndicator = ({ isSpeaking }) => {$/;"	F	line:3	language:JavaScript
+Button	src/components/base/Button.jsx	/^const Button = ({ label, onClick, isLoading, disabled, isConnected }) => {$/;"	F	line:4	language:JavaScript
+Chat	src/components/Chat.js	/^const Chat = ({ style, conversations }) => {$/;"	F	line:4	language:JavaScript
+MessageLeft	src/components/Message.js	/^export const MessageLeft = props => {$/;"	E	line:118	language:JavaScript
+MessageRight	src/components/Message.js	/^export const MessageRight = props => {$/;"	E	line:141	language:JavaScript
+PleaseSetYourPublicKeyMessage	src/App.jsx	/^const PleaseSetYourPublicKeyMessage = () => {$/;"	F	line:190	language:JavaScript
+VolumeLevel	src/components/call/VolumeLevel.jsx	/^const VolumeLevel = ({ volume }) => {$/;"	F	line:5	language:JavaScript
+analyser	src/hooks/useMicVolumeLevel.js	/^    let analyser;$/;"	V	line:10	language:JavaScript
+animationId	src/hooks/useMicVolumeLevel.js	/^    let animationId;$/;"	V	line:12	language:JavaScript
+assistantIsSpeaking	src/App.jsx	/^  const [assistantIsSpeaking, setAssistantIsSpeaking] = useState(false);$/;"	V	line:18	language:JavaScript
+assistantOptions	src/App.jsx	/^const assistantOptions = {$/;"	O	line:113	language:JavaScript
+audioContext	src/hooks/useMicVolumeLevel.js	/^    let audioContext;$/;"	V	line:9	language:JavaScript
+avatarNothing	src/components/Message.js	/^    avatarNothing: {$/;"	P	line:105	language:JavaScript
+borderRadius	src/components/call/AssistantSpeechIndicator.jsx	/^          borderRadius: "4px",$/;"	P	line:12	language:JavaScript
+connected	src/App.jsx	/^  const [connected, setConnected] = useState(false);$/;"	V	line:16	language:JavaScript
+connecting	src/App.jsx	/^  const [connecting, setConnecting] = useState(false);$/;"	V	line:15	language:JavaScript
+content	src/components/Message.js	/^        content: "''",$/;"	P	line:28	language:JavaScript
+content	src/components/Message.js	/^        content: "''",$/;"	P	line:39	language:JavaScript
+content	src/components/Message.js	/^        content: "''",$/;"	P	line:63	language:JavaScript
+content	src/components/Message.js	/^        content: "''",$/;"	P	line:74	language:JavaScript
+conversations	src/App.jsx	/^  const [conversations, setConversations] = useState([]);$/;"	V	line:20	language:JavaScript
+cursor	src/components/base/Button.jsx	/^        cursor,$/;"	V	line:37	language:JavaScript
+dataArray	src/hooks/useMicVolumeLevel.js	/^    let dataArray;$/;"	V	line:11	language:JavaScript
+displayName	src/components/Message.js	/^    displayName: {$/;"	P	line:111	language:JavaScript
+endCall	src/App.jsx	/^  const endCall = () => {$/;"	F	line:79	language:JavaScript
+font	src/components/Message.js	/^      font: "400 .9em 'Open Sans', sans-serif",$/;"	P	line:23	language:JavaScript
+font	src/components/Message.js	/^      font: "400 .9em 'Open Sans', sans-serif",$/;"	P	line:58	language:JavaScript
+getVolumeLevel	src/hooks/useMicVolumeLevel.js	/^    const getVolumeLevel = () => {$/;"	F	line:14	language:JavaScript
+height	src/components/call/AssistantSpeechIndicator.jsx	/^          height: "20px",$/;"	P	line:9	language:JavaScript
+isPublicKeyMissingError	src/utils/index.js	/^export const isPublicKeyMissingError = ({ vapiError }) => {$/;"	E	line:1	language:JavaScript
+level	src/components/ActiveCallDetail.jsx	/^  const level = 0;$/;"	V	line:9	language:JavaScript
+margin	src/components/Message.js	/^      margin: 0,$/;"	P	line:88	language:JavaScript
+marginRight	src/components/call/AssistantSpeechIndicator.jsx	/^          marginRight: "10px",$/;"	P	line:11	language:JavaScript
+messageBlue	src/components/Message.js	/^    messageBlue: {$/;"	P	line:15	language:JavaScript
+messageContent	src/components/Message.js	/^    messageContent: {$/;"	P	line:86	language:JavaScript
+messageOrange	src/components/Message.js	/^    messageOrange: {$/;"	P	line:50	language:JavaScript
+messageRow	src/components/Message.js	/^    messageRow: {$/;"	P	line:8	language:JavaScript
+messageRowRight	src/components/Message.js	/^    messageRowRight: {$/;"	P	line:11	language:JavaScript
+messageTimeStampRight	src/components/Message.js	/^    messageTimeStampRight: {$/;"	P	line:90	language:JavaScript
+messages	src/App.jsx	/^    messages: [$/;"	P	line:128	language:JavaScript
+model	src/App.jsx	/^  model: {$/;"	P	line:125	language:JavaScript
+numBars	src/components/call/VolumeLevel.jsx	/^const numBars = 10;$/;"	V	line:3	language:JavaScript
+opacity	src/components/base/Button.jsx	/^        opacity,$/;"	V	line:36	language:JavaScript
+orange	src/components/Message.js	/^    orange: {$/;"	P	line:99	language:JavaScript
+padding	src/components/Message.js	/^      padding: 0,$/;"	P	line:87	language:JavaScript
+setAssistantIsSpeaking	src/App.jsx	/^  const [assistantIsSpeaking, setAssistantIsSpeaking] = useState(false);$/;"	V	line:18	language:JavaScript
+setConnected	src/App.jsx	/^  const [connected, setConnected] = useState(false);$/;"	V	line:16	language:JavaScript
+setConnecting	src/App.jsx	/^  const [connecting, setConnecting] = useState(false);$/;"	V	line:15	language:JavaScript
+setConversations	src/App.jsx	/^  const [conversations, setConversations] = useState([]);$/;"	V	line:20	language:JavaScript
+setShowPublicKeyInvalidMessage	src/App.jsx	/^    setShowPublicKeyInvalidMessage,$/;"	V	line:186	language:JavaScript
+setShowPublicKeyInvalidMessage	src/App.jsx	/^  const [showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage] = useState(false);$/;"	V	line:173	language:JavaScript
+setShowPublicKeyInvalidMessage	src/App.jsx	/^  const { showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage } = usePublicKeyInvalid();$/;"	V	line:23	language:JavaScript
+setVolume	src/hooks/useMicVolumeLevel.js	/^  const [volume, setVolume] = useState(0);$/;"	V	line:4	language:JavaScript
+setVolumeLevel	src/App.jsx	/^  const [volumeLevel, setVolumeLevel] = useState(0);$/;"	V	line:19	language:JavaScript
+setupAnalyser	src/hooks/useMicVolumeLevel.js	/^    const setupAnalyser = () => {$/;"	F	line:30	language:JavaScript
+showPublicKeyInvalidMessage	src/App.jsx	/^    showPublicKeyInvalidMessage,$/;"	V	line:185	language:JavaScript
+showPublicKeyInvalidMessage	src/App.jsx	/^  const [showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage] = useState(false);$/;"	V	line:173	language:JavaScript
+showPublicKeyInvalidMessage	src/App.jsx	/^  const { showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage } = usePublicKeyInvalid();$/;"	V	line:23	language:JavaScript
+startCallInline	src/App.jsx	/^  const startCallInline = async () => {$/;"	F	line:74	language:JavaScript
+transcriber	src/App.jsx	/^  transcriber: {$/;"	P	line:116	language:JavaScript
+usePublicKeyInvalid	src/App.jsx	/^const usePublicKeyInvalid = () => {$/;"	F	line:172	language:JavaScript
+useStyles	src/components/Message.js	/^const useStyles = makeStyles(theme =>$/;"	F	line:6	language:JavaScript
+useVolumeListener	src/hooks/useMicVolumeLevel.js	/^const useVolumeListener = audioStream => {$/;"	F	line:3	language:JavaScript
+values	src/hooks/useMicVolumeLevel.js	/^      let values = 0;$/;"	V	line:16	language:JavaScript
+vapi	src/App.jsx	/^const vapi = new Vapi('e0987027-c3a6-4236-81d8-146bf26b02f0');$/;"	V	line:12	language:JavaScript
+voice	src/App.jsx	/^  voice: {$/;"	P	line:121	language:JavaScript
+volume	src/hooks/useMicVolumeLevel.js	/^  const [volume, setVolume] = useState(0);$/;"	V	line:4	language:JavaScript
+volumeLevel	src/App.jsx	/^  const [volumeLevel, setVolumeLevel] = useState(0);$/;"	V	line:19	language:JavaScript
+width	src/components/call/AssistantSpeechIndicator.jsx	/^          width: "20px",$/;"	P	line:8	language:JavaScript
