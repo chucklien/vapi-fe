@@ -1,26 +1,95 @@
 import ScaleLoader from 'react-spinners/ScaleLoader';
+import RiseLoader from 'react-spinners/RiseLoader';
+import BounceLoader from 'react-spinners/BounceLoader';
 import { BiMicrophone, BiMicrophoneOff } from 'react-icons/bi';
+import { propEq, cond, always } from 'ramda';
 
-const Button = ({ label, onClick, isLoading, disabled, isConnected }) => {
+const Button = ({
+  label,
+  onClick,
+  isLoading,
+  disabled,
+  isConnected = false,
+  isInferencing,
+  isUserSpeaking,
+}) => {
   const opacity = disabled ? 0.75 : 1;
   const cursor = disabled ? 'not-allowed' : 'pointer';
 
-  const Contents = isLoading ? (
-    <ScaleLoader
-      color="#000"
-      height={20}
-      width={5}
-      margin={0.5}
-      loading={true}
-      size={50}
-      css={{ display: 'block', margin: '0 auto' }}
-    />
-  ) : isConnected ? (
-    <BiMicrophone size={60} />
-  ) : (
-    <BiMicrophoneOff size={60} />
-  );
+  // const Contents = isLoading ? (
+  //   <ScaleLoader
+  //     color="#000"
+  //     height={20}
+  //     width={5}
+  //     margin={0.5}
+  //     loading={true}
+  //     size={50}
+  //     css={{ display: 'block', margin: '0 auto' }}
+  //   />
+  // ) : isConnected ? (
+  //   <BiMicrophone size={60} />
+  // ) : (
+  //   <BiMicrophoneOff size={60} />
+  // );
 
+  const Contents = cond([
+    [
+      propEq(true, 'isLoading'),
+      always(
+        <ScaleLoader
+          color="#000"
+          height={20}
+          width={5}
+          margin={0.5}
+          loading={true}
+          size={50}
+          css={{ display: 'block', margin: '0 auto' }}
+        />,
+      ),
+    ],
+    [
+      propEq(true, 'isUserSpeaking'),
+      always(
+        <RiseLoader
+          color="#000"
+          height={20}
+          width={5}
+          margin={0.5}
+          loading={true}
+          size={10}
+          css={{ display: 'block', margin: '0 auto' }}
+        />,
+      ),
+    ],
+    [
+      propEq(true, 'isInferencing'),
+      always(
+        <BounceLoader
+          color="#000"
+          height={20}
+          width={5}
+          margin={0.5}
+          loading={true}
+          size={50}
+          css={{ display: 'block', margin: '0 auto' }}
+        />,
+      ),
+    ],
+    [propEq(true, 'isConnected'), always(<BiMicrophone size={60} />)],
+    [propEq(false, 'isConnected'), always(<BiMicrophoneOff size={60} />)],
+  ])({
+    isLoading,
+    isConnected,
+    isUserSpeaking,
+    isInferencing,
+  });
+
+  console.log({
+    isLoading,
+    isConnected,
+    isUserSpeaking,
+    isInferencing,
+  });
   return (
     <button
       onClick={onClick}

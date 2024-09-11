@@ -19,8 +19,10 @@ const App = () => {
   const [volumeLevel, setVolumeLevel] = useState(0);
   const [conversations, setConversations] = useState([]);
   const callObject = useRef(null);
+  const [isInferencing, setIsInference] = useState(false);
+  const [isUserSpeaking, setIsUserSpeaking] = useState(false);
 
-  const { showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage } = usePublicKeyInvalid();
+  // const { showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage } = usePublicKeyInvalid();
 
   // hook into Vapi events
   useEffect(() => {
@@ -28,18 +30,19 @@ const App = () => {
       setConnecting(false);
       setConnected(true);
 
-      setShowPublicKeyInvalidMessage(false);
+      // setShowPublicKeyInvalidMessage(false);
     });
 
     vapi.on('call-end', () => {
       setConnecting(false);
       setConnected(false);
 
-      setShowPublicKeyInvalidMessage(false);
+      // setShowPublicKeyInvalidMessage(false);
     });
 
     vapi.on('speech-start', () => {
       setAssistantIsSpeaking(true);
+      setIsInference(false);
     });
 
     vapi.on('speech-end', () => {
@@ -55,15 +58,30 @@ const App = () => {
       if (message.type === 'conversation-update') {
         setConversations(message?.conversation);
       }
+      if (
+        message.type === 'speech-update' &&
+        message.role === 'user' &&
+        message.status === 'started'
+      ) {
+        setIsUserSpeaking(true);
+      }
+      if (
+        message.type === 'speech-update' &&
+        message.role === 'user' &&
+        message.status === 'stopped'
+      ) {
+        setIsUserSpeaking(false);
+        setIsInference(true);
+      }
     });
 
     vapi.on('error', error => {
       console.error(error);
 
       setConnecting(false);
-      if (isPublicKeyMissingError({ vapiError: error })) {
-        setShowPublicKeyInvalidMessage(true);
-      }
+      // if (isPublicKeyMissingError({ vapiError: error })) {
+      //   setShowPublicKeyInvalidMessage(true);
+      // }
     });
 
     // we only want this to fire on mount
@@ -94,8 +112,10 @@ const App = () => {
       {!connected && conversations.length > 0 && (
         <Chat style={{ marginBottom: '15px', flex: 1 }} conversations={tail(conversations)} />
       )}
-      <p style={{ marginTop: '50px' }}>按下開始對談</p>
-      <div style={{ marginTop: 'auto', marginBottom: '36px' }}>
+      {!connected && conversations.length === 0 && (
+        <p style={{ marginTop: '50px', color: '#333333' }}>按下開始對談</p>
+      )}
+      <div style={{ marginTop: 'auto', marginBottom: '85px' }}>
         {!connected ? (
           <Button label="Call" onClick={startCallInline} isLoading={connecting} />
         ) : (
@@ -103,6 +123,8 @@ const App = () => {
             assistantIsSpeaking={assistantIsSpeaking}
             volumeLevel={volumeLevel}
             onEndCallClick={endCall}
+            isUserSpeaking={isUserSpeaking}
+            isInferencing={isInferencing}
           />
         )}
       </div>

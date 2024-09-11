@@ -4,7 +4,13 @@ import Button from './base/Button';
 import VolumeLevel from './call/VolumeLevel';
 // import useMicrophoneVolume from '../hooks/useMicVolumeLevel';
 
-const ActiveCallDetail = ({ assistantIsSpeaking, volumeLevel, onEndCallClick }) => {
+const ActiveCallDetail = ({
+  assistantIsSpeaking,
+  volumeLevel,
+  onEndCallClick,
+  isUserSpeaking,
+  isInferencing,
+}) => {
   // const level = useMicrophoneVolume();
   const level = 0;
   return (
@@ -19,9 +25,11 @@ const ActiveCallDetail = ({ assistantIsSpeaking, volumeLevel, onEndCallClick }) 
           border: '1px solid #ddd',
           borderRadius: '8px',
           boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
-          width: '400px',
+          width: '100%',
+          maxWidth: '400px',
           height: '200px',
           backgroundColor: 'black',
+          alignSelf: 'center',
         }}
       >
         <AssistantSpeechIndicator isSpeaking={assistantIsSpeaking} />
@@ -29,7 +37,13 @@ const ActiveCallDetail = ({ assistantIsSpeaking, volumeLevel, onEndCallClick }) 
         <div style={{ color: 'white' }}>level: {level}</div>
       </div>
       <div style={{ marginTop: '20px', textAlign: 'center', alignSelf: 'center' }}>
-        <Button label="End Call" onClick={onEndCallClick} isConnected />
+        <Button
+          label="End Call"
+          onClick={onEndCallClick}
+          isConnected
+          isInferencing={isInferencing}
+          isUserSpeaking={isUserSpeaking}
+        />
       </div>
     </div>
   );
