@@ -97,7 +97,6 @@ const Button = ({
         backgroundColor: 'white',
         color: 'black',
         border: '2px solid #ddd',
-        borderRadius: '8px',
         fontSize: '16px',
         outline: 'none',
         boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',

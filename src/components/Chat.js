@@ -7,7 +7,6 @@ const Chat = ({ style, conversations }) => {
     <div
       style={{
         maxWidth: '768px',
-        height: '50vh',
         overflow: 'scroll',
         padding: '20px',
         ...style,

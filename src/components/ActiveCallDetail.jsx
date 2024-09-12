@@ -1,4 +1,3 @@
-import { useLocalSessionId } from '@daily-co/daily-react';
 import AssistantSpeechIndicator from './call/AssistantSpeechIndicator';
 import Button from './base/Button';
 import VolumeLevel from './call/VolumeLevel';
@@ -12,7 +11,6 @@ const ActiveCallDetail = ({
   isInferencing,
 }) => {
   // const level = useMicrophoneVolume();
-  const level = 0;
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div
@@ -34,7 +32,6 @@ const ActiveCallDetail = ({
       >
         <AssistantSpeechIndicator isSpeaking={assistantIsSpeaking} />
         <VolumeLevel volume={volumeLevel} />
-        <div style={{ color: 'white' }}>level: {level}</div>
       </div>
       <div style={{ marginTop: '20px', textAlign: 'center', alignSelf: 'center' }}>
         <Button
