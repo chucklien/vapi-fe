@@ -8,6 +8,8 @@ import { isPublicKeyMissingError } from './utils';
 import Chat from './components/Chat';
 import { BiMicrophoneOff, BiMicrophone } from 'react-icons/bi';
 
+let originalStream;
+let audioCtx;
 const App = () => {
   const [connecting, setConnecting] = useState(false);
   const [connected, setConnected] = useState(false);
@@ -129,6 +131,14 @@ const App = () => {
   const endCall = () => {
     vapiInstance.stop();
     setVapiInstance(null);
+    if (originalStream) {
+      originalStream.getTracks().forEach(track => track.stop());
+    }
+
+    // Close the AudioContext
+    if (audioCtx && audioCtx.state !== 'closed') {
+      audioCtx.close();
+    }
   };
 
   return (
@@ -175,7 +185,7 @@ const App = () => {
 };
 
 async function getProcessedAudioStream() {
-  const originalStream = await navigator.mediaDevices.getUserMedia({
+  originalStream = await navigator.mediaDevices.getUserMedia({
     audio: {
       echoCancellation: true,
       noiseSuppression: true,
