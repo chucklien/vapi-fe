@@ -8,94 +8,127 @@ import { isPublicKeyMissingError } from './utils';
 import Chat from './components/Chat';
 import { BiMicrophoneOff, BiMicrophone } from 'react-icons/bi';
 
-// Put your Vapi Public Key below.
-const vapi = new Vapi('e0987027-c3a6-4236-81d8-146bf26b02f0');
-
 const App = () => {
   const [connecting, setConnecting] = useState(false);
   const [connected, setConnected] = useState(false);
 
   const [assistantIsSpeaking, setAssistantIsSpeaking] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(0);
+  const [userVolumeLevel, setUserVolumeLevel] = useState(0);
   const [conversations, setConversations] = useState([]);
   const callObject = useRef(null);
   const [isInferencing, setIsInference] = useState(false);
   const [isUserSpeaking, setIsUserSpeaking] = useState(false);
+  const [vapiInstance, setVapiInstance] = useState(null);
 
   // const { showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage } = usePublicKeyInvalid();
 
   // hook into Vapi events
   useEffect(() => {
-    vapi.on('call-start', () => {
-      setConnecting(false);
-      setConnected(true);
+    if (vapiInstance) {
+      vapiInstance.on('call-start', () => {
+        setConnecting(false);
+        setConnected(true);
 
-      // setShowPublicKeyInvalidMessage(false);
-    });
+        // setShowPublicKeyInvalidMessage(false);
+      });
 
-    vapi.on('call-end', () => {
-      setConnecting(false);
-      setConnected(false);
+      vapiInstance.on('call-end', () => {
+        setConnecting(false);
+        setConnected(false);
+        setUserVolumeLevel(0);
 
-      // setShowPublicKeyInvalidMessage(false);
-    });
+        // setShowPublicKeyInvalidMessage(false);
+      });
 
-    vapi.on('speech-start', () => {
-      setAssistantIsSpeaking(true);
-      setIsInference(false);
-    });
+      vapiInstance.on('speech-start', () => {
+        console.log('speech start');
+        setAssistantIsSpeaking(true);
+        setIsInference(false);
+      });
 
-    vapi.on('speech-end', () => {
-      setAssistantIsSpeaking(false);
-    });
+      vapiInstance.on('speech-end', () => {
+        console.log('speech end');
+        setAssistantIsSpeaking(false);
+      });
 
-    vapi.on('volume-level', level => {
-      setVolumeLevel(level);
-    });
+      vapiInstance.on('volume-level', level => {
+        setVolumeLevel(level);
+      });
 
-    vapi.on('message', message => {
-      // console.log('message', message);
-      if (message.type === 'conversation-update') {
-        setConversations(message?.conversation);
-      }
-      if (
-        message.type === 'speech-update' &&
-        message.role === 'user' &&
-        message.status === 'started'
-      ) {
-        setIsUserSpeaking(true);
-      }
-      if (
-        message.type === 'speech-update' &&
-        message.role === 'user' &&
-        message.status === 'stopped'
-      ) {
-        setIsUserSpeaking(false);
-        setIsInference(true);
-      }
-    });
+      vapiInstance.on('message', message => {
+        // console.log('message', message);
+        if (message.type === 'conversation-update') {
+          setConversations(message?.conversation);
+        }
+        if (
+          message.type === 'speech-update' &&
+          message.role === 'user' &&
+          message.status === 'started'
+        ) {
+          setIsUserSpeaking(true);
+        }
+        if (
+          message.type === 'speech-update' &&
+          message.role === 'user' &&
+          message.status === 'stopped'
+        ) {
+          setIsUserSpeaking(false);
+          setIsInference(true);
+        }
+      });
 
-    vapi.on('error', error => {
-      console.error(error);
+      vapiInstance.on('error', error => {
+        console.error(error);
 
-      setConnecting(false);
-      // if (isPublicKeyMissingError({ vapiError: error })) {
-      //   setShowPublicKeyInvalidMessage(true);
-      // }
-    });
-
+        setConnecting(false);
+        // if (isPublicKeyMissingError({ vapiError: error })) {
+        //   setShowPublicKeyInvalidMessage(true);
+        // }
+      });
+    }
     // we only want this to fire on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [vapiInstance]);
 
   // call start handler
   const startCallInline = async () => {
     setConnecting(true);
-    // vapi.start(assistantOptions);
-    callObject.current = await vapi.start('0c197331-6c70-48b3-9e41-6c32f4a9be51');
+
+    // Get the processed audio stream with increased gain
+    const processedAudioStream = await getProcessedAudioStream();
+    const audioTrack = processedAudioStream.getAudioTracks()[0];
+
+    // Create a new instance of Vapi with the processed audio stream
+    const vapiWithProcessedAudio = new Vapi(
+      'e0987027-c3a6-4236-81d8-146bf26b02f0',
+      undefined,
+      undefined,
+      { audioSource: audioTrack },
+    );
+
+    callObject.current = await vapiWithProcessedAudio.start('0c197331-6c70-48b3-9e41-6c32f4a9be51');
+
+    const dailyCallInstance = vapiWithProcessedAudio.getDailyCallObject();
+
+    if (dailyCallInstance) {
+      dailyCallInstance.startLocalAudioLevelObserver(100);
+
+      dailyCallInstance.on('local-audio-level', e => {
+        if (e) {
+          setUserVolumeLevel(e.audioLevel);
+        }
+      });
+    } else {
+      console.error('Failed to access Daily.js call instance');
+    }
+
+    // Set the Vapi instance for event handling
+    setVapiInstance(vapiWithProcessedAudio);
   };
   const endCall = () => {
-    vapi.stop();
+    vapiInstance.stop();
+    setVapiInstance(null);
   };
 
   return (
@@ -130,6 +163,7 @@ const App = () => {
           <ActiveCallDetail
             assistantIsSpeaking={assistantIsSpeaking}
             volumeLevel={volumeLevel}
+            userVolumeLevel={userVolumeLevel}
             onEndCallClick={endCall}
             isUserSpeaking={isUserSpeaking}
             isInferencing={isInferencing}
@@ -139,6 +173,27 @@ const App = () => {
     </div>
   );
 };
+
+async function getProcessedAudioStream() {
+  const originalStream = await navigator.mediaDevices.getUserMedia({
+    audio: {
+      echoCancellation: true,
+      noiseSuppression: true,
+      autoGainControl: false,
+    },
+  });
+
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const source = audioCtx.createMediaStreamSource(originalStream);
+  const gainNode = audioCtx.createGain();
+  gainNode.gain.value = 20.0; // Increase gain
+
+  const destination = audioCtx.createMediaStreamDestination();
+  source.connect(gainNode);
+  gainNode.connect(destination);
+
+  return destination.stream;
+}
 
 const assistantOptions = {
   name: 'Vapi’s Pizza Front Desk',

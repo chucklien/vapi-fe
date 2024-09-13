@@ -1,4 +1,4 @@
-import AssistantSpeechIndicator from './call/AssistantSpeechIndicator';
+import SpeechIndicator from './call/SpeechIndicator';
 import Button from './base/Button';
 import VolumeLevel from './call/VolumeLevel';
 // import useMicrophoneVolume from '../hooks/useMicVolumeLevel';
@@ -6,6 +6,7 @@ import VolumeLevel from './call/VolumeLevel';
 const ActiveCallDetail = ({
   assistantIsSpeaking,
   volumeLevel,
+  userVolumeLevel,
   onEndCallClick,
   isUserSpeaking,
   isInferencing,
@@ -25,13 +26,15 @@ const ActiveCallDetail = ({
           boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
           width: '100%',
           maxWidth: '400px',
-          height: '200px',
+          height: 'auto',
           backgroundColor: 'black',
           alignSelf: 'center',
         }}
       >
-        <AssistantSpeechIndicator isSpeaking={assistantIsSpeaking} />
+        <SpeechIndicator isSpeaking={assistantIsSpeaking} />
         <VolumeLevel volume={volumeLevel} />
+        <SpeechIndicator style={{ marginTop: '15px' }} role="You" isSpeaking={isUserSpeaking} />
+        <VolumeLevel volume={userVolumeLevel} />
       </div>
       <div style={{ marginTop: '20px', textAlign: 'center', alignSelf: 'center' }}>
         <Button

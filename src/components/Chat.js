@@ -2,7 +2,6 @@ import React from 'react';
 import { MessageLeft, MessageRight } from './Message';
 
 const Chat = ({ style, conversations }) => {
-  console.log('conversation', conversations);
   return (
     <div
       style={{

@@ -84,12 +84,12 @@ const Button = ({
     isInferencing,
   });
 
-  console.log({
-    isLoading,
-    isConnected,
-    isUserSpeaking,
-    isInferencing,
-  });
+  // console.log({
+  //   isLoading,
+  //   isConnected,
+  //   isUserSpeaking,
+  //   isInferencing,
+  // });
   return (
     <button
       onClick={onClick}
