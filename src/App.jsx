@@ -196,7 +196,7 @@ async function getProcessedAudioStream() {
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   const source = audioCtx.createMediaStreamSource(originalStream);
   const gainNode = audioCtx.createGain();
-  gainNode.gain.value = 20.0; // Increase gain
+  gainNode.gain.value = 3.0; // Increase gain
 
   const destination = audioCtx.createMediaStreamDestination();
   source.connect(gainNode);
